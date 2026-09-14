@@ -3,6 +3,7 @@ import {
   LayoutDashboard,
   HeartPulse,
   History as HistoryIcon,
+  ChevronDown,
 } from "lucide-react";
 
 import HealthForm from "./components/health/HealthForm";
@@ -14,22 +15,26 @@ import "./App.css";
 
 function App() {
   const [activeTab, setActiveTab] = useState("dashboard");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const handleDashboardClick = (e) => {
-    e.preventDefault();
-    setActiveTab("dashboard");
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+  // Updated to scroll to the specific section instead of the top of the page
+  const handleNavClick = (tab) => {
+    setActiveTab(tab);
+    setIsMobileMenuOpen(false); // Close dropdown on mobile after clicking
+    
+    const section = document.getElementById(tab);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
     <div className="app">
+      {/* DESKTOP SIDEBAR (Hidden on mobile) */}
       <aside className="sidebar">
         <div className="sidebar-logo">
           <HeartPulse size={28} />
@@ -37,31 +42,28 @@ function App() {
         </div>
 
         <nav className="sidebar-nav">
-          {/* 1. Dashboard Nav Item */}
           <a
             href="#dashboard"
             className={`nav-item ${activeTab === "dashboard" ? "active" : ""}`}
-            onClick={handleDashboardClick}
+            onClick={(e) => { e.preventDefault(); handleNavClick("dashboard"); }}
           >
             <LayoutDashboard size={20} />
             <span>Dashboard</span>
           </a>
 
-          {/* 2. Log Health Nav Item */}
           <a
             href="#log-health"
             className={`nav-item ${activeTab === "log-health" ? "active" : ""}`}
-            onClick={() => setActiveTab("log-health")}
+            onClick={(e) => { e.preventDefault(); handleNavClick("log-health"); }}
           >
             <HeartPulse size={20} />
             <span>Log Health</span>
           </a>
 
-          {/* 3. History Nav Item */}
           <a
             href="#history"
             className={`nav-item ${activeTab === "history" ? "active" : ""}`}
-            onClick={() => setActiveTab("history")}
+            onClick={(e) => { e.preventDefault(); handleNavClick("history"); }}
           >
             <HistoryIcon size={20} />
             <span>History</span>
@@ -70,6 +72,54 @@ function App() {
       </aside>
 
       <main className="main-content">
+        {/* MOBILE NAVIGATION DROPDOWN (Visible ONLY on mobile) */}
+        <div className="mobile-nav-wrapper">
+          <div 
+            className="mobile-nav-logo" 
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            <HeartPulse size={20} className="heart-icon" />
+            <span>HealthTrack</span>
+            <ChevronDown 
+              size={16} 
+              style={{ 
+                transition: 'transform 0.3s ease', 
+                transform: isMobileMenuOpen ? 'rotate(180deg)' : 'rotate(0deg)' 
+              }} 
+            />
+          </div>
+
+          {isMobileMenuOpen && (
+            <div className="mobile-dropdown">
+              <a
+                href="#dashboard"
+                className={`nav-item ${activeTab === "dashboard" ? "active" : ""}`}
+                onClick={(e) => { e.preventDefault(); handleNavClick("dashboard"); }}
+              >
+                <LayoutDashboard size={18} />
+                <span>Dashboard</span>
+              </a>
+              <a
+                href="#log-health"
+                className={`nav-item ${activeTab === "log-health" ? "active" : ""}`}
+                onClick={(e) => { e.preventDefault(); handleNavClick("log-health"); }}
+              >
+                <HeartPulse size={18} />
+                <span>Log Health</span>
+              </a>
+              <a
+                href="#history"
+                className={`nav-item ${activeTab === "history" ? "active" : ""}`}
+                onClick={(e) => { e.preventDefault(); handleNavClick("history"); }}
+              >
+                <HistoryIcon size={18} />
+                <span>History</span>
+              </a>
+            </div>
+          )}
+        </div>
+
+        {/* PAGE SECTIONS - All sections are now rendered permanently so you can scroll to them */}
         <section id="dashboard" className="dashboard-section">
           <Dashboard />
         </section>
@@ -81,7 +131,6 @@ function App() {
           </div>
 
           <div className="log-health-compound-grid">
-            {/* Left Column: Meal Logger Card */}
             <div className="log-card-column">
               <div className="form-card-header">
                 <span className="form-card-badge">Nutrition Log</span>
@@ -90,7 +139,6 @@ function App() {
               <HealthForm />
             </div>
 
-            {/* Right Column: Daily Habits & Goals Combined */}
             <div className="log-card-column">
               <div className="log-subcard-item">
                 <div className="form-card-header">
@@ -113,7 +161,6 @@ function App() {
 
         <section id="history" className="history-section">
           <h2 className="section-heading">History</h2>
-
           <History />
         </section>
       </main>
