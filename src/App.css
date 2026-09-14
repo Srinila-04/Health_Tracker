@@ -196,15 +196,15 @@ body {
 .summary-cards {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  gap: 18px;
   margin-bottom: 35px;
 }
 
 .summary-card {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 22px;
+  gap: 14px;
+  padding: 18px;
   background: #0D3D3D;
   border: none;
   border-radius: 20px;
@@ -224,13 +224,13 @@ body {
 }
 
 .card-icon {
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 14px;
-  font-size: 24px;
+  font-size: 20px;
   flex-shrink: 0;
 }
 
@@ -242,7 +242,7 @@ body {
 
 .summary-card h3 {
   color: #E8F4F8;
-  font-size: 22px;
+  font-size: 18px;
 }
 
 
@@ -1571,16 +1571,16 @@ form button[type="submit"]:hover {
 }
 
 @media (max-width: 600px) {
+  .topbar-date-pill{
+    display: none;
+  }
+
   .meal-category-grid {
     grid-template-columns: 1fr;
   }
 }
 
-/* ====================================================
-   Minimalist Neomorphic Sleep Capsule Pillars
-==================================================== */
-
-.sleep-capsule-card {
+  .sleep-capsule-card {
   padding: 26px 28px;
 }
 
@@ -3459,26 +3459,51 @@ input[type="number"]::-webkit-outer-spin-button:hover {
   }
 }
 
-/* 3. Mobile Navigation & Layout (Max Width: 768px) */
+
+/* =========================================
+   Responsive Mobile Navigation & Layout
+========================================= */
+
+/* Hide Mobile Nav on Desktop */
+.mobile-nav-wrapper {
+  display: none;
+}
+
+/* Tablet Layout */
+@media (max-width: 960px) {
+  .dashboard-main-grid,
+  .log-health-compound-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* =========================================
+   Mobile Layout
+========================================= */
+
 @media (max-width: 768px) {
-  /* Hide the Desktop Sidebar */
+
+  /* Hide Desktop Sidebar */
   .sidebar {
     display: none !important;
   }
 
-  /* Expand Main Content */
+  /* Full Width Main Content */
   .main-content {
     width: 100% !important;
     margin-left: 0 !important;
     padding: 20px !important;
   }
 
-  /* Remove Search Bar from Dashboard */
+  /* Hide Dashboard Search on Mobile */
   .topbar-search-wrapper {
     display: none !important;
   }
 
-  /* Show and Style the Mobile Dropdown Nav */
+  /* =========================================
+     Mobile Navigation
+  ========================================= */
+
   .mobile-nav-wrapper {
     display: block;
     position: fixed;
@@ -3486,15 +3511,14 @@ input[type="number"]::-webkit-outer-spin-button:hover {
     left: 0;
     width: 100%;
     padding: 16px 20px;
-    padding-bottom: 75px; /* Extra padding for the second row */
-    background: rgba(13, 61, 61, 0.75); 
+    padding-bottom: 75px;
+    background: rgba(13, 61, 61, 0.75);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     z-index: 990;
     border-bottom: 1px solid rgba(122, 173, 173, 0.1);
   }
 
-  /* Style the logo exactly like the Search Pill */
   .mobile-nav-logo {
     display: inline-flex;
     align-items: center;
@@ -3516,7 +3540,7 @@ input[type="number"]::-webkit-outer-spin-button:hover {
     color: #F5C842;
   }
 
-  /* The Expanding Dropdown Card */
+  /* Mobile Dropdown */
   .mobile-dropdown {
     position: absolute;
     top: calc(100% + 10px);
@@ -3539,19 +3563,19 @@ input[type="number"]::-webkit-outer-spin-button:hover {
     justify-content: flex-start;
   }
 
-  /* 
-   * Pull Date Pill and Notification Bell up 
-   * so they sit next to the new Logo pill on tablets/large phones 
-   */
+  /* =========================================
+     Dashboard Top Bar
+  ========================================= */
+
   .dashboard-topbar {
     position: fixed;
-    top: 70px; /* Pushed down below the logo */
+    top: 70px;
     right: 20px;
     left: 20px;
-    justify-content: flex-start; /* Aligns them neatly to the left */
+    justify-content: flex-start;
     margin-top: 0;
     z-index: 995;
-    pointer-events: none; 
+    pointer-events: none;
   }
 
   .dashboard-header {
@@ -3559,13 +3583,88 @@ input[type="number"]::-webkit-outer-spin-button:hover {
   }
 
   .topbar-actions {
-    pointer-events: auto; 
+    pointer-events: auto;
   }
 
-  /* Stack Dashboard Cards */
-  .summary-cards,
-  .meal-category-grid {
+  /* Hide Date on Mobile */
+  .topbar-date-pill {
+    display: none !important;
+  }
+
+  /* Keep Notification Bell */
+  .topbar-bell-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  /* =========================================
+     Mobile KPI Cards
+  ========================================= */
+
+  .summary-cards {
     grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .summary-card {
+    padding: 14px;
+    gap: 10px;
+    border-radius: 16px;
+  }
+
+  .card-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+  }
+
+  .summary-card p {
+    font-size: 11px;
+    margin-bottom: 4px;
+  }
+
+  .summary-card h3 {
+    font-size: 17px;
   }
 }
+
+/* =========================================
+   Small Mobile Devices
+========================================= */
+
+@media (max-width: 480px) {
+
+  .main-content {
+    padding: 16px !important;
+  }
+
+  .summary-cards {
+    gap: 10px;
+  }
+
+  .summary-card {
+    padding: 12px;
+    gap: 8px;
+  }
+
+  .card-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .summary-card p {
+    font-size: 10px;
+  }
+
+  .summary-card h3 {
+    font-size: 15px;
+  }
+
+  .notification-dropdown {
+    width: 280px;
+    right: -10px;
+  }
+}
+
 
