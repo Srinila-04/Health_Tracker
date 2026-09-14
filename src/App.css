@@ -3663,4 +3663,36 @@ input[type="number"]::-webkit-outer-spin-button:hover {
   }
 }
 
+/* =========================================
+   Desktop: Equal Height Log Health Columns
+========================================= */
 
+@media (min-width: 961px) {
+
+  .log-health-compound-grid {
+    align-items: stretch !important;
+  }
+
+  .log-card-column {
+    height: 100% !important;
+  }
+
+  .log-card-column > .neo-form {
+    height: 100% !important;
+    box-sizing: border-box;
+  }
+
+  .log-card-column:last-child {
+    height: 100% !important;
+  }
+
+  .log-card-column:last-child .log-subcard-item {
+    flex: 1 !important;
+    min-height: 0;
+  }
+
+  .log-card-column:last-child .log-subcard-item .neo-form {
+    height: 100% !important;
+    box-sizing: border-box;
+  }
+}
